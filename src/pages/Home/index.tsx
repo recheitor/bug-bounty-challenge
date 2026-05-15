@@ -51,7 +51,7 @@ const Home = () => {
           {t("home.welcome")}
         </Typography>
         <Typography variant="subtitle1" textAlign="center">
-          {t("home.intro")}{" "}
+          <Trans i18nKey="home.intro" t={t} components={{ b: <b /> }} />{" "}
         </Typography>
         <Typography variant="body2" textAlign="center" color="textSecondary">
           {t("home.sidenote")}
