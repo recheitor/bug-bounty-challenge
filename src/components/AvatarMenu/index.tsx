@@ -11,7 +11,7 @@ import {
 import { indigo } from "@mui/material/colors";
 import Menu from "@mui/material/Menu";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
+import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 
@@ -43,7 +43,7 @@ const stringAvatar = (user: User) => {
   };
 };
 
-const AvatarMenu = (props: AvatarMenuProps) => {
+const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props, ref) => {
   const { user } = props;
   const theme = useTheme();
   const { t } = useTranslation("app");
@@ -58,8 +58,8 @@ const AvatarMenu = (props: AvatarMenuProps) => {
   // const history = useHistory();
 
   return (
-    <div>
-      <Avatar onClick={handleClick} {...stringAvatar(user)} />
+    <>
+      <Avatar ref={ref} onClick={handleClick} {...stringAvatar(user)} />
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -143,8 +143,8 @@ const AvatarMenu = (props: AvatarMenuProps) => {
           </Button>
         </Box>
       </Menu>
-    </div>
+    </>
   );
-};
+});
 
 export default AvatarMenu;
