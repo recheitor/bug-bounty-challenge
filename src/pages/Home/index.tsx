@@ -58,7 +58,7 @@ const Home = () => {
         </Typography>
         <List>
           {issues.map((issue) => (
-            <ListItem>
+            <ListItem key={issue.title}>
               <Typography variant="h5" sx={{ p: 2 }}>
                 {issue.icon}
               </Typography>
