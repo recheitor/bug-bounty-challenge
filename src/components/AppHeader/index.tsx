@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 import AvatarMenu from "../AvatarMenu";
+import LanguageSelect from "../LanguageSelect";
 
 interface AppBarProps extends MuiAppBarProps {
   theme?: Theme;
@@ -29,7 +30,7 @@ const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
   height: theme.tokens.header.height
 }));
 
-const AppHeader = React.forwardRef((props: AppHeaderProps, ref) => {
+const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) => {
   const { user, pageTitle } = props;
   const { t } = useTranslation("app");
   const theme = useTheme();
@@ -43,9 +44,10 @@ const AppHeader = React.forwardRef((props: AppHeaderProps, ref) => {
   const countdownSeconds = (countdown % 60).toFixed(0).padStart(2, "0");
 
   useEffect(() => {
-    setInterval(() => {
+    const id = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
+    return () => clearInterval(id);
   }, []);
 
   return (
@@ -79,7 +81,16 @@ const AppHeader = React.forwardRef((props: AppHeaderProps, ref) => {
               {pageTitle.toLocaleUpperCase()}
             </Typography>
           </Box>
-          <Box sx={{ flex: 1, justifyContent: "flex-end", display: "flex" }}>
+          <Box
+            sx={{
+              flex: 1,
+              justifyContent: "flex-end",
+              display: "flex",
+              alignItems: "center",
+              gap: 2
+            }}
+          >
+            <LanguageSelect />
             {user && user.eMail && (
               <Grow in={Boolean(user && user.eMail)}>
                 <AvatarMenu user={user} />

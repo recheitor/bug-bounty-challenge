@@ -22,7 +22,7 @@ interface AvatarMenuProps {
 const getInitials = (user: User) => {
   if (user.firstName || user.lastName) {
     const initials = [user.firstName, user.lastName]
-      .map((_) => (_[0] ? _[0].toLocaleUpperCase() : _))
+      .map((_) => (_?.[0] ? _[0].toLocaleUpperCase() : ""))
       .join("");
     return initials;
   }
@@ -35,7 +35,7 @@ const stringAvatar = (user: User) => {
   const r = Math.floor(parseInt(initials[0] ? initials[0] : "k", 36) * 7);
   const g = Math.floor(parseInt(initials[1] ? initials[1] : "l", 36) * 7);
   const b = Math.floor(
-    parseInt(user?.firstName[1] ? user?.firstName[1] : "m", 36) * 7
+    parseInt(user.firstName?.[1] ? user.firstName[1] : "m", 36) * 7
   );
   return {
     sx: { bgcolor: `rgb(${r},${g},${b})`, cursor: "pointer" },
@@ -87,7 +87,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props, ref) => {
             color="primary"
             size="medium"
           >
-            Edit Profile
+            {t("avatarMenu.editProfile")}
           </Button>
         </Box>
         <Box
@@ -106,7 +106,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props, ref) => {
           >
             <Icon path={mdiTag} size={0.75} />
             <Box m={0.5} />
-            Edit Organization
+            {t("avatarMenu.editOrganization")}
           </Button>
         </Box>
         <Divider />
@@ -129,7 +129,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props, ref) => {
               textTransform: "none"
             }}
           >
-            Data Privacy Statement
+            {t("avatarMenu.dataPrivacy")}
           </Button>
           <Button
             variant="text"
@@ -139,7 +139,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props, ref) => {
               textTransform: "none"
             }}
           >
-            Imprint
+            {t("avatarMenu.imprint")}
           </Button>
         </Box>
       </Menu>

@@ -1,9 +1,8 @@
 import React, { Suspense } from "react";
 import { SnackbarProvider } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import { HashRouter } from "react-router-dom";
-
-import services from "./api/services";
 
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -13,7 +12,7 @@ import RootComponent from "./pages/Root/index";
 import { osapiens } from "./themes";
 
 import "./i18n";
-import { StoreProvider as UserStoreProvider } from "./api/services/User";
+import { StoreProviders } from "./api/services";
 
 const theme = osapiens.light;
 
@@ -26,8 +25,9 @@ const classes = {
   info: `${PREFIX}-info`
 };
 
-const CombinedStoreProvider: React.FC<{}> = ({ children }) => {
-  return <UserStoreProvider>{children}</UserStoreProvider>;
+const Loading = () => {
+  const { t } = useTranslation("app");
+  return <div>{t("loading")}</div>;
 };
 
 const AppContainer = () => {
@@ -36,8 +36,8 @@ const AppContainer = () => {
       <CssBaseline />
       {/* Kickstart a simple scoped CSS baseline to build upon. */}
       {/* Required to override Material-UI's styles via CSS modules. */}
-      <Suspense fallback={<div>loading...</div>}>
-        <CombinedStoreProvider>
+      <Suspense fallback={<Loading />}>
+        <StoreProviders>
           <SnackbarProvider
             maxSnack={3}
             classes={{
@@ -55,7 +55,7 @@ const AppContainer = () => {
               </ThemeProvider>
             </StylesProvider>
           </SnackbarProvider>
-        </CombinedStoreProvider>
+        </StoreProviders>
       </Suspense>
     </>
   );
