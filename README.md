@@ -9,12 +9,17 @@ npm start
 
 Opens at `http://localhost:3000`. The app picks `en` as default and exposes a language switcher in the header (English / Deutsch).
 
+## Commit structure
+
+For each task there is a dedicated commit that does **strictly what the task asks for**. Together with the optional tasks I addeds some extra improvements that I think that add value.
 
 ### Task 1 — Missing `key` prop warning in `<List>`
 
 **Root cause:** In [src/pages/Home/index.tsx](src/pages/Home/index.tsx) the `issues.map(...)` rendered `<ListItem>` without a `key`.
 
 **Fix:** Added the title as stable `key` . Later when added the languages, refactored so each item now has a unique string `key` from the i18n translation key (more stable than the title, which would have changed between languages).
+
+> Note: in this case the data is hard-coded, so a translation key is a perfectly stable identifier. In a real scenario where the list comes from an API, the right choice would be the entity's `id` from the backend — it's guaranteed unique and stable across renders, languages, and reorders, in a way that a title or translation key cannot guarantee.
 
 ---
 
@@ -44,7 +49,7 @@ Opens at `http://localhost:3000`. The app picks `en` as default and exposes a la
 **Fix:**
 - Corrected the typo to `this.user = result;`.
 - Wrapped `AvatarMenu` in `forwardRef<HTMLDivElement, AvatarMenuProps>` and forwarded the ref to the root `<Avatar>` element. Also replaced its wrapper `<div>` with a fragment so the ref attaches directly to the animated node, which is what `<Grow>` needs.
-- Improvement: Did the same on `AppHeader` (`React.forwardRef<HTMLDivElement, AppHeaderProps>`) so the typing is consistent.
+- Improvement: Did the same on `AppHeader` (`forwardRef<HTMLDivElement, AppHeaderProps>`) so the typing is consistent.
 
 Files: [src/api/services/User/store.ts](src/api/services/User/store.ts), [src/components/AvatarMenu/index.tsx](src/components/AvatarMenu/index.tsx), [src/components/AppHeader/index.tsx](src/components/AppHeader/index.tsx).
 
@@ -143,14 +148,12 @@ Added an `AccessDenied` / `speakToYourAdmin` pair (the `AccessDenied` page was r
 
 ## What I would do next in a real production environment
 
-The scope of the challenge intentionally stops at "find bugs and fix them". The list below is what I would push for if this were a real product.
-
 ### Testing - Cover all cases. Similar to what I already did in the backend challenge
 - **Unit tests** for `getInitials` / `stringAvatar` (pure functions, lots of edge cases around missing names).
 - **Component tests** with React Testing Library for `AvatarMenu`, `AppHeader`, `LanguageSelect`, and the `Home` issue list (cover the i18n + `<Trans>` rendering, and the countdown cleanup).
 - **A regression test for the interval leak** — render `AppHeader`, advance fake timers, unmount, and assert no further `setCount` calls. This is the kind of bug that quietly comes back.
 - **Store tests** for `UserStore.fetchUser` (success / failure / typo regression).
-- **End-to-end** smoke test (Playwright or Cypress) for: app loads → avatar appears → menu opens → language switches.
+- **End-to-end** smoke test (Something I worked with would be Playwright or Cypress) for example: app loads → avatar appears → menu opens → logout → console.log.
 
 ### Tooling and CI
 - **ESLint + Prettier** wired into pre-commit (Husky + lint-staged) and into CI. The repo currently relies on `react-app` ESLint config only.

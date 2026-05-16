@@ -1,5 +1,5 @@
 import { CircularProgress, Grow, Box, Toolbar, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 import AvatarMenu from "../AvatarMenu";
@@ -22,7 +22,7 @@ interface AppHeaderProps {
   pageTitle: string;
 }
 
-const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) => {
+const AppHeader = forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) => {
   const { user, pageTitle } = props;
   const { t } = useTranslation("app");
 
