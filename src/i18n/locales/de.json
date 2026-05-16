@@ -1,1 +1,43 @@
-{}
+{
+    "logout": "Abmelden",
+    "loading": "Wird geladen...",
+    "appTitle": "Supplier OS Anwendung",
+    "AccessDenied": "Zugriff verweigert",
+    "speakToYourAdmin": "Bitte wende dich an deinen Administrator.",
+    "routes": {
+        "/home": "Bug-Bounty-Herausforderung"
+    },
+    "avatarMenu": {
+        "editProfile": "Profil bearbeiten",
+        "editOrganization": "Organisation bearbeiten",
+        "dataPrivacy": "Datenschutzerklärung",
+        "imprint": "Impressum"
+    },
+    "home": {
+        "welcome": "Willkommen!",
+        "intro": "Dies ist eine Demo-Anwendung mit einigen Störungen und Fehlern, die du hoffentlich finden wirst. 😃 Hier ist die Liste der <b>bekannten</b> Probleme:",
+        "sidenote": "Alle Fehler haben einen unterschiedlichen Komplexitätsgrad und sie sind alle ziemlich häufig (reale Probleme für jeden React-Entwickler). Um alle offenen Punkte zu lösen, sind unterschiedliche Fähigkeiten erforderlich: Googeln, Erfahrung, Dokumentation und Fehlermeldungen lesen, Kreativität und analytisches Denken.",
+        "issues": {
+            "consoleKeyError": {
+                "title": "Konsolenfehler: Warning: Each child in a list should have a unique \"key\" prop.",
+                "description": "Hoffentlich findest du heraus, was diesen Fehler verursacht – er ist ziemlich nervig."
+            },
+            "boldKnown": {
+                "title": "Das Wort \"known\" soll im Einleitungstext fett dargestellt werden.",
+                "description": "Stelle bei der Umsetzung der Lösung sicher, dass der i18n-Text nicht verändert wird."
+            },
+            "missingAvatar": {
+                "title": "Der Benutzer-Avatar in der App-Leiste fehlt, obwohl der Benutzer beim App-Start korrekt geladen werden sollte.",
+                "description": "Beim App-Start laden wir das aktuelle Benutzerobjekt über einen MobX-Store, aber aus irgendeinem Grund wird der Benutzer-Avatar oben rechts in der App-Leiste nicht angezeigt. Achtung: Bei der Lösung dieses Problems wirst du möglicherweise mit einem zweiten Fehler konfrontiert."
+            },
+            "countdownGlitch": {
+                "title": "Optional: Der Countdown ist manchmal fehlerhaft (schwer zu reproduzieren).",
+                "description": "Einige Entwickler haben erwähnt, dass sich der Countdown in der App-Leiste manchmal seltsam verhält, leider konnten sie diesen Fehler nicht zuverlässig reproduzieren. Vielleicht findest du die Ursache."
+            },
+            "languageSwitch": {
+                "title": "Optional: Es wäre toll, die Sprache wechseln zu können.",
+                "description": "Bitte füge in der App-Leiste eine Sprachauswahl hinzu, um die UI-Sprache zwischen Englisch und Deutsch umzuschalten."
+            }
+        }
+    }
+}

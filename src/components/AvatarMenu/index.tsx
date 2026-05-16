@@ -11,7 +11,7 @@ import {
 import { indigo } from "@mui/material/colors";
 import Menu from "@mui/material/Menu";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
+import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 
@@ -22,7 +22,7 @@ interface AvatarMenuProps {
 const getInitials = (user: User) => {
   if (user.firstName || user.lastName) {
     const initials = [user.firstName, user.lastName]
-      .map((_) => (_[0] ? _[0].toLocaleUpperCase() : _))
+      .map((_) => (_?.[0] ? _[0].toLocaleUpperCase() : ""))
       .join("");
     return initials;
   }
@@ -35,7 +35,7 @@ const stringAvatar = (user: User) => {
   const r = Math.floor(parseInt(initials[0] ? initials[0] : "k", 36) * 7);
   const g = Math.floor(parseInt(initials[1] ? initials[1] : "l", 36) * 7);
   const b = Math.floor(
-    parseInt(user?.firstName[1] ? user?.firstName[1] : "m", 36) * 7
+    parseInt(user.firstName?.[1] ? user.firstName[1] : "m", 36) * 7
   );
   return {
     sx: { bgcolor: `rgb(${r},${g},${b})`, cursor: "pointer" },
@@ -43,7 +43,7 @@ const stringAvatar = (user: User) => {
   };
 };
 
-const AvatarMenu = (props: AvatarMenuProps) => {
+const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props, ref) => {
   const { user } = props;
   const theme = useTheme();
   const { t } = useTranslation("app");
@@ -58,8 +58,8 @@ const AvatarMenu = (props: AvatarMenuProps) => {
   // const history = useHistory();
 
   return (
-    <div>
-      <Avatar onClick={handleClick} {...stringAvatar(user)} />
+    <>
+      <Avatar ref={ref} onClick={handleClick} {...stringAvatar(user)} />
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -87,7 +87,7 @@ const AvatarMenu = (props: AvatarMenuProps) => {
             color="primary"
             size="medium"
           >
-            Edit Profile
+            {t("avatarMenu.editProfile")}
           </Button>
         </Box>
         <Box
@@ -106,7 +106,7 @@ const AvatarMenu = (props: AvatarMenuProps) => {
           >
             <Icon path={mdiTag} size={0.75} />
             <Box m={0.5} />
-            Edit Organization
+            {t("avatarMenu.editOrganization")}
           </Button>
         </Box>
         <Divider />
@@ -129,7 +129,7 @@ const AvatarMenu = (props: AvatarMenuProps) => {
               textTransform: "none"
             }}
           >
-            Data Privacy Statement
+            {t("avatarMenu.dataPrivacy")}
           </Button>
           <Button
             variant="text"
@@ -139,12 +139,12 @@ const AvatarMenu = (props: AvatarMenuProps) => {
               textTransform: "none"
             }}
           >
-            Imprint
+            {t("avatarMenu.imprint")}
           </Button>
         </Box>
       </Menu>
-    </div>
+    </>
   );
-};
+});
 
 export default AvatarMenu;

@@ -1,17 +1,21 @@
-import User from "./User";
+import React from "react";
+import { StoreProvider as UserStoreProvider } from "./User";
 
-const requireAllServices = (ctx: any): React.FC<any>[] => {
-  const keys = ctx.keys();
-  const modules = keys.map(ctx);
+/**
+ * Registry of every store provider that should wrap the app.
+ *
+ * Order matters: providers compose outer-to-inner. A provider listed earlier
+ * is mounted *outside* later ones, so later providers can consume context
+ * from earlier ones (e.g. an auth store later in the list could read from
+ * a config store earlier).
+ *
+ * To add a new store: create the folder under `api/services/`, export a
+ * `StoreProvider`, and add it here.
+ */
+const STORE_PROVIDERS: React.FC[] = [UserStoreProvider];
 
-  return keys.map((key: string, index: number) => modules[index].StoreProvider);
-};
-
-const getAllServices = (): React.FC<any>[] => {
-  // return requireAllServices(
-  //   require.context("api/services/", true, /index\.tsx$/)
-  // );
-  return [User];
-};
-
-export default getAllServices();
+export const StoreProviders: React.FC = ({ children }) =>
+  STORE_PROVIDERS.reduceRight<React.ReactElement>(
+    (acc, Provider) => <Provider>{acc}</Provider>,
+    <>{children}</>
+  );

@@ -1,12 +1,43 @@
 {
   "logout": "Logout",
+  "loading": "loading...",
   "appTitle": "Supplier OS Application",
+  "AccessDenied": "Access Denied",
+  "speakToYourAdmin": "Please contact your administrator.",
   "routes": {
     "/home": "Bug Bounty Challenge"
   },
+  "avatarMenu": {
+    "editProfile": "Edit Profile",
+    "editOrganization": "Edit Organization",
+    "dataPrivacy": "Data Privacy Statement",
+    "imprint": "Imprint"
+  },
   "home": {
     "welcome": "Welcome!",
-    "intro": "This is a demo application with some glitches and bugs, where we hope that you can finde them. 😃 Here the list of <b>known</b> issues:",
-    "sidenote": "All bugs have a different level of complexity and all of them are pretty common (real wolrd problems for any react developer). To solve all open points a different set of skills are required: googling, experience, reading docs and error messages, creativity and analytical thinking."
+    "intro": "This is a demo application with some glitches and bugs, where we hope that you can find them. 😃 Here the list of <b>known</b> issues:",
+    "sidenote": "All bugs have a different level of complexity and all of them are pretty common (real world problems for any react developer). To solve all open points a different set of skills are required: googling, experience, reading docs and error messages, creativity and analytical thinking.",
+    "issues": {
+      "consoleKeyError": {
+        "title": "Console error: Warning: Each child in a list should have a unique \"key\" prop.",
+        "description": "Hope you are able to find what is causing this error, as it is annoying."
+      },
+      "boldKnown": {
+        "title": "The word \"known\" should be displayed bold in the introduction text.",
+        "description": "When implementing a solution, please ensure to not change the i18n text."
+      },
+      "missingAvatar": {
+        "title": "User avatar in app bar is missing, although user should be fetched on app start correctly.",
+        "description": "On app start we load the current user object via a MobX store, but for any reason the user avatar is not displayed in the top right of the app bar. Attention: When solving this issue, you might will be confronted with a second bug."
+      },
+      "countdownGlitch": {
+        "title": "Optional: Countdown is broken sometimes (hard to reproduce).",
+        "description": "Some developers mentioned that the countdown in the app header behaves strange sometimes, but unfortunately they were not able to reproduce this glitch reliably, maybe you find the root cause."
+      },
+      "languageSwitch": {
+        "title": "Optional: It would be great to be able to switch the language.",
+        "description": "Please add a language select control in the app bar to swicth the UI language between english and german."
+      }
+    }
   }
 }
